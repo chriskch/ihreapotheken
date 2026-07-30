@@ -80,6 +80,20 @@ Still open:
    refuse to start (`"events" directive is not allowed here`) and the container
    crash-loops.
 
+   `nginx.conf` is kept comment-free so it can be pasted as-is. What it adds on
+   top of the generated default, and why:
+   - `absolute_redirect off` — Coolify terminates TLS at its proxy and forwards
+     plain HTTP. Without this, nginx's trailing-slash redirect sends an absolute
+     `http://...` Location and drops the client off HTTPS for a hop.
+   - `add_header X-Robots-Tag "noindex, nofollow" always` — see the robots.txt
+     note under *Notes and caveats*. It is repeated inside both `location`
+     blocks because nginx's `add_header` is not additive: a location that sets
+     any `add_header` stops inheriting the server-level ones.
+   - `server_tokens off` — do not advertise the nginx patch version.
+   - `gzip` for text types, `Cache-Control` for images/fonts (30d) and
+     `no-cache, must-revalidate` for HTML/JS/TXT so content edits go live on the
+     next request.
+
    Two defects in Coolify's generated default that `nginx.conf` corrects:
    - `root`/`index` are declared only inside `location /`. Any further location
      block therefore falls back to the compiled-in root and 404s.
