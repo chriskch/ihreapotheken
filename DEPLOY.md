@@ -41,38 +41,46 @@ fail until DNS has propagated.** Verify before deploying:
 dig +short ihreapotheken.htw-projekte.de   # must return the Coolify server IP
 ```
 
-### 2. Git repository
+### 2. Git repository — done
 
-Coolify's Static build pack pulls from Git — it cannot take an upload. A local
-repo already exists (`git log` in this directory). Push it to your host, e.g.:
+Coolify's Static build pack pulls from Git — it cannot take an upload.
+`origin` is `git@github.com:chriskch/ihreapotheken.git`, branch `main` is
+pushed. Redeploys are `git push` + *Redeploy* in Coolify.
 
-```
-git remote add origin git@github.com:<org>/ihreapotheken-preview.git
-git push -u origin main
-```
-
-If the repo is private, connect Coolify to the host first via
-**Settings → Sources** (GitHub App / deploy key).
+If the repo is private, Coolify must be connected to GitHub via
+**Settings → Sources** (GitHub App / deploy key) — since the app deploys, this
+is already in place.
 
 ## Coolify setup
 
-1. **Project → New Resource → Public Repository** (or *Private Repository* via
-   the configured source).
-2. Repository URL: the remote from above. Branch: `main`.
-3. **Build Pack: `Static`.**
-4. **Base Directory: `/`** — the site root is the repo root.
-5. **Domains:** `https://ihreapotheken.htw-projekte.de`
-   Enter it with the `https://` scheme so Coolify requests a Let's Encrypt
-   certificate and adds the HTTP→HTTPS redirect.
-6. **Ports Exposes: `80`** (nginx default; usually prefilled).
-7. **Web server configuration:** click **Generate** to produce the default
-   nginx config for your Coolify version, then merge in the blocks marked
-   `# ---- added:` from [`nginx.conf`](nginx.conf). They add gzip, asset
-   caching, relative redirects, and the `X-Robots-Tag: noindex` header.
-   If the generated default matches the shape of `nginx.conf`, paste it whole.
-8. **Deploy.**
+Application: **GEO Lab → production → IHRE APOTHEKEN** (`hosting-europe-3`).
+
+Already configured:
+
+| Field | Value |
+| --- | --- |
+| Build Pack | `Static` |
+| Static Image | `nginx:alpine` |
+| Base Directory | `/` |
+| Domains | `https://ihreapotheken.htw-projekte.de` |
+| Ports Exposes | `80` |
+
+Still open:
+
+1. **Custom Nginx Configuration** — empty, i.e. Coolify's default is used.
+   Paste the contents of [`nginx.conf`](nginx.conf) (validated against
+   `nginx:alpine`), or click *Generate Default Nginx Configuration* and merge in
+   the blocks marked `# ---- added:`. They add gzip, asset caching, relative
+   redirects behind the TLS proxy, and the `X-Robots-Tag: noindex` header.
+2. **Direction** — currently *Allow www & non-www*. There is no DNS record for
+   `www.ihreapotheken.htw-projekte.de`, so ACME validation for that hostname
+   cannot succeed. Either set **Allow non-www only**, or add a `www` CNAME.
+3. **Save → Redeploy.**
 
 No environment variables, no health check path, no persistent storage needed.
+
+Tip: before DNS is repointed, use *Generate Domain* to get a temporary
+Coolify hostname and confirm the site renders there.
 
 ## Verify after deploy
 
