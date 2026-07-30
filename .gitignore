@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+._*
+
+# Editor / tooling
+.vscode/
+.idea/
+*.swp
+
+# Claude Code / graphify artifacts
+.claude/
+graphify-out/

@@ -1,0 +1,84 @@
+# robots.txt für https://ihreapotheken.de/
+
+Sitemap: https://ihreapotheken.de/sitemap.xml
+
+# -----------------------------------------------------------
+# Allgemeine Regeln für alle Crawler
+# -----------------------------------------------------------
+User-agent: *
+Disallow: /useraccount/
+Disallow: /kundenkonto
+Disallow: /account/
+Disallow: /login
+Disallow: /register/check-email
+Disallow: /register/confirm
+Disallow: /register/confirmed
+Allow: /register
+Disallow: /resetting/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /partners/api/
+Disallow: /user/area
+Disallow: /setcategorystats
+Disallow: /setsearchstats
+Disallow: /removeitemfromcart
+Disallow: /additemtocart
+Disallow: /autocomplete/
+Disallow: /sonata/
+Disallow: /_profiler/
+Disallow: /_error/
+Disallow: /_wdt/
+Disallow: /exceptions/
+Disallow: /bep/
+Disallow: /widgets/
+Disallow: /clearcache
+Disallow: /ajaxhtml/
+Disallow: /bestellung/
+Disallow: /media/download/
+Disallow: /suche?
+Crawl-delay: 10
+
+# -----------------------------------------------------------
+# Such- und nutzerbezogene KI-Crawler ausdrücklich zulassen
+# Zugriff auf redaktionelle und servicebezogene Inhalte,
+# personalisierte und transaktionale Pfade bleiben gesperrt,
+# keine Drosselung über Crawl-delay
+# -----------------------------------------------------------
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: ClaudeBot
+Disallow: /useraccount/
+Disallow: /kundenkonto
+Disallow: /account/
+Disallow: /login
+Disallow: /register/check-email
+Disallow: /register/confirm
+Disallow: /register/confirmed
+Disallow: /resetting/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /partners/api/
+Disallow: /user/area
+Disallow: /removeitemfromcart
+Disallow: /additemtocart
+Disallow: /bestellung/
+Disallow: /media/download/
+Disallow: /suche?
+Allow: /
+
+# Hinweis: Google-Extended wird bewusst nicht gesperrt,
+# damit die Inhalte fuer Google Gemini nutzbar bleiben.
+# Ueber reine Trainings-Crawler (z. B. GPTBot, CCBot) kann
+# separat entschieden werden; aktuell gelten fuer sie die
+# allgemeinen Regeln oben.
+
+# -----------------------------------------------------------
+# Unerwuenschte Crawler vollstaendig ausschliessen
+# -----------------------------------------------------------
+User-agent: PetalBot
+Disallow: /
+
+User-agent: RyteBot
+Disallow: /
