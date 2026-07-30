@@ -67,11 +67,26 @@ Already configured:
 
 Still open:
 
-1. **Custom Nginx Configuration** — empty, i.e. Coolify's default is used.
-   Paste the contents of [`nginx.conf`](nginx.conf) (validated against
-   `nginx:alpine`), or click *Generate Default Nginx Configuration* and merge in
-   the blocks marked `# ---- added:`. They add gzip, asset caching, relative
-   redirects behind the TLS proxy, and the `X-Robots-Tag: noindex` header.
+1. **Custom Nginx Configuration** — paste the contents of
+   [`nginx.conf`](nginx.conf). It is Coolify's generated default plus the
+   changes marked `# ADDED` / `# CHANGED`: gzip, asset caching, relative
+   redirects behind the TLS proxy, `server_tokens off`, the
+   `X-Robots-Tag: noindex` header, and two fixes to the generated default
+   (see below).
+
+   The field is written to `/etc/nginx/conf.d/default.conf`, which the base
+   image includes from **inside** the `http {}` block. It must contain a bare
+   `server { }` block — an `events {}` or `http {}` block there makes nginx
+   refuse to start (`"events" directive is not allowed here`) and the container
+   crash-loops.
+
+   Two defects in Coolify's generated default that `nginx.conf` corrects:
+   - `root`/`index` are declared only inside `location /`. Any further location
+     block therefore falls back to the compiled-in root and 404s.
+   - `try_files` lists `$uri/index.html` before `$uri/`, so `/ratgeber` returns
+     the page body instead of redirecting to `/ratgeber/`. The browser then
+     resolves the page's relative references (`./support.js`, `uploads/...`)
+     against `/` and gets 404s — the page does not render at all. Verified.
 2. **Direction** — currently *Allow www & non-www*. There is no DNS record for
    `www.ihreapotheken.htw-projekte.de`, so ACME validation for that hostname
    cannot succeed. Either set **Allow non-www only**, or add a `www` CNAME.
