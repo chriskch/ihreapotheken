@@ -15,15 +15,51 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,700&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#FFFFFF;font-family:"Roboto Flex",system-ui,"Helvetica Neue",Arial,sans-serif;color:#555555;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#FFFFFF;font-family:"Roboto Flex",system-ui,"Helvetica Neue",Arial,sans-serif;color:#555555;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
 a{color:#D43034;text-decoration:none}
 a:hover{color:#B8282C;text-decoration:underline}
 details summary::-webkit-details-marker{display:none}
 img,svg{max-width:100%}
 table{max-width:100%}
+/* --- HEADER (Struktur und Maße wie ihreapotheken.de) --- */
+.hdr{position:relative;z-index:2;background:#FFFFFF;box-shadow:0 4px 10px -4px rgba(0,0,0,0.15)}
+.hdr *,.hdr *::before,.hdr *::after{box-sizing:border-box}
+.hdr-inner{max-width:1110px;margin:0 auto;padding:0 24px}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;gap:24px;height:80px}
+.hdr-brand{display:flex;align-items:center;text-decoration:none}
+.hdr-brand:hover{text-decoration:none}
+.hdr-logo{display:block;height:32px;width:auto}
+.hdr-nav{display:flex;align-items:center}
+.hdr-nav .nav-link{display:flex;align-items:center;gap:8px;margin-left:24px;padding:6px 0;color:#262626;font-size:14px;font-weight:600;line-height:20px;text-decoration:none;transition:color 0.2s ease-in-out}
+.hdr-nav .nav-link:first-child{margin-left:0}
+.hdr-nav .nav-link:hover,.hdr-nav .nav-link:focus{color:#D43034;text-decoration:none}
+.hdr-nav .nav-link:hover .ico-stroke{stroke:#D43034}
+.hdr-nav .nav-link:hover .ico-fill{fill:#D43034}
+.hdr-nav .nav-link svg{flex:none}
+.nav-lbl{font-weight:700;line-height:20px;white-space:nowrap}
+.hdr-search{display:flex;align-items:flex-start;margin-top:3px;padding-bottom:32px}
+.hdr-form{flex:1 1 auto;min-width:0;margin-right:16px}
+.search-wrap{position:relative;display:flex;align-items:center}
+.search-input{flex:1 1 auto;min-width:0;height:60px;padding:18px 70px 18px 24px;font-family:inherit;font-size:14px;color:#555555;background:#FFFFFF;border:1px solid #DDDDDD;border-right:0;border-radius:8px 0 0 8px;outline:none;transition:border-color 0.2s ease-in-out}
+.search-input:focus{border-color:#262626}
+.search-ph{position:absolute;top:50%;left:24px;right:70px;transform:translateY(-50%);font-size:14px;line-height:20px;color:#555555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;transition:opacity 0.2s ease-in-out}
+.search-input:focus+.search-ph,.search-input:not(:placeholder-shown)+.search-ph{opacity:0}
+.search-ph-s{display:none}
+.btn-scan{display:none}
+.btn-search{flex:none;display:flex;align-items:center;justify-content:center;width:60px;height:60px;padding:0;background:#D43034;border:1px solid #D43034;border-radius:0 8px 8px 0;cursor:pointer;transition:background-color 0.2s ease-in-out}
+.btn-search:hover{background:#9A2326;border-color:#9A2326}
+.btn-upload{flex:none;display:inline-flex;align-items:center;justify-content:center;min-height:60px;padding:14px 32px;background:#D43034;border:1px solid #D43034;border-radius:8px;color:#FFFFFF;font-family:inherit;font-size:12px;font-weight:500;line-height:1;text-decoration:none;white-space:nowrap;cursor:pointer;transition:background-color 0.2s ease-in-out}
+.btn-upload:hover,.btn-upload:focus{background:#9A2326;border-color:#9A2326;color:#FFFFFF;text-decoration:none}
+.btn-upload svg{flex:none}
+.up-lbl,.up-lbl-s{display:inline-flex;margin-left:10px}
+.up-lbl-s{display:none}
 @media (max-width:1024px){
 .hero{padding:40px 40px!important;gap:32px!important}
 .f-grid{gap:32px!important}
+}
+@media (max-width:991.98px){
+.nav-lbl{display:none}
+.hdr-nav .nav-link{gap:0}
 }
 @media (max-width:900px){
 .f-grid{grid-template-columns:1fr 1fr!important}
@@ -35,14 +71,27 @@ table{max-width:100%}
 .cmp td:first-child{padding-top:14px!important;font-size:16.5px!important}
 .cmp td[data-label]::before{content:attr(data-label);display:block;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#8a8a8a;margin-bottom:1px}
 }
-@media (max-width:768px){
-main section{padding-left:16px!important;padding-right:16px!important}
-main section:first-of-type{margin-top:20px!important}
-.hdr-top{padding:14px 16px 0!important;gap:12px!important}
-.hdr-nav{gap:18px!important}
-.hdr-search{padding:16px 16px 18px!important;flex-direction:column!important;gap:10px!important}
-.search-input{padding:14px 16px!important;min-width:0!important}
-.btn-upload{padding:15px 20px!important;justify-content:center!important}
+@media (max-width:767.98px){
+.hdr-inner{padding:0 16px}
+.hdr-top{height:64px;gap:12px}
+.hdr-logo{height:auto;width:140px}
+.hdr-nav .nav-link{margin-left:16px;padding:10px 4px}
+.hdr-search{flex-direction:row-reverse;align-items:center;gap:12px;padding-bottom:16px}
+.hdr-form{margin-right:0;margin-left:4px}
+.search-input{height:40px;padding:8px 70px 8px 16px;font-size:12px}
+.search-ph{left:16px;right:74px;font-size:12px}
+.search-ph-l{display:none}
+.search-ph-s{display:inline}
+.btn-search{width:40px;height:40px}
+.btn-search svg{width:16px;height:16px}
+.btn-scan{position:absolute;top:50%;right:50px;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0;background:transparent;border:0;color:#262626;font-family:inherit;font-size:10px;font-weight:700;line-height:1;letter-spacing:.02em;cursor:pointer}
+.btn-scan svg{margin-bottom:2px}
+.btn-upload{flex-direction:column;min-height:40px;padding:4px 8px;font-size:10px}
+.up-lbl{display:none}
+.up-lbl-s{display:inline-flex;margin-left:0;margin-top:6px}
+main section{padding-left:16px!important;padding-right:16px!important;margin-top:40px!important}
+main>section:first-of-type{margin-top:20px!important}
+main>section:last-of-type{margin-bottom:56px!important}
 .hero{flex-direction:column!important;padding:26px 20px!important;gap:22px!important;border-radius:12px!important}
 .hero-text,.hero-media{flex:none!important;width:100%!important}
 .hero-media{min-height:0!important}
@@ -69,15 +118,24 @@ main section:first-of-type{margin-top:20px!important}
 .f-legal{padding-left:16px!important;padding-right:16px!important}
 }
 @media (max-width:600px){
-.nav-lbl{display:none!important}
-.hdr-logo{height:32px!important}
-.hdr-nav{gap:8px!important}
-.hdr-nav a{min-width:44px!important;min-height:44px!important;justify-content:center!important}
 .hero-h1{font-size:22px!important}
 main section h2{font-size:20px!important;line-height:1.35!important}
 main section h3{font-size:17px!important}
-.stat-num{font-size:24px!important}
-.stat-lbl{font-size:11.5px!important}
+.hero-cta{gap:14px!important}
+.hero-badge{width:66px!important}
+.stats{flex-direction:column!important}
+.stat{display:flex!important;align-items:center!important;gap:14px!important;text-align:left!important;padding:14px 16px!important}
+.stat-num{font-size:26px!important;flex:none!important;min-width:86px!important}
+.stat-lbl{font-size:14px!important;line-height:1.4!important;margin-top:0!important}
+.nl-icon{width:34px!important;height:34px!important}
+.nl-title{font-size:19px!important}
+.nl-sub{font-size:14.5px!important}
+.faq-q{font-size:15.5px!important;padding:16px 18px!important}
+.faq-a{font-size:15px!important;padding:0 18px 18px!important}
+}
+@media (max-width:360px){
+.hdr-logo{width:120px}
+.hdr-nav .nav-link{margin-left:12px}
 }
 </style>
 <script type="application/ld+json">
@@ -108,33 +166,41 @@ main section h3{font-size:17px!important}
 </script>
 </helmet>
 <!-- HEADER (Platzhalter, wird von Live-Seite übernommen) -->
-<header class="hdr" style="background:#FFFFFF">
-  <div class="hdr-top" style="max-width:1110px;margin:0 auto;padding:22px 32px 0;display:flex;align-items:center;justify-content:space-between;gap:24px">
-    <a href="../index.html" style="display:flex;align-items:center;text-decoration:none" style-hover="text-decoration:none">
-      <img class="hdr-logo" src="uploads/IhreApotheken.de-Logo.png" alt="IhreApotheken.de" style="height:41px;display:block">
-    </a>
-    <nav class="hdr-nav" style="display:flex;align-items:center;gap:38px">
-      <a href="#" style="display:flex;align-items:center;gap:9px;color:#1a1a1a;font-size:16px;font-weight:700;text-decoration:none" style-hover="color:#D43034;text-decoration:none">
-        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"><path d="M3 11L12 3l9 8"></path><path d="M5 10v10h14V10"></path><path d="M12 12v5M9.5 14.5h5" stroke="#D43034"></path></svg>
-        <span class="nav-lbl">Apotheke wählen</span></a>
-      <a href="#" style="display:flex;align-items:center;gap:9px;color:#1a1a1a;font-size:16px;font-weight:700;text-decoration:none" style-hover="color:#D43034;text-decoration:none">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="#1a1a1a"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"></path></svg>
-        <span class="nav-lbl">Anmelden</span></a>
-      <a href="#" style="display:flex;align-items:center;gap:9px;color:#1a1a1a;font-size:16px;font-weight:700;text-decoration:none" style-hover="color:#D43034;text-decoration:none">
-        <svg width="21" height="21" viewBox="0 0 24 24" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
-        <span class="nav-lbl">Menü</span></a>
-    </nav>
-  </div>
-  <div class="hdr-search" style="max-width:1110px;margin:0 auto;padding:29px 32px 24px;display:flex;gap:20px;align-items:stretch">
-    <div style="flex:1;display:flex;border-radius:9px;overflow:hidden;box-shadow:0 0 0 1px #C9C9C9">
-      <input class="search-input" placeholder="Medikament suchen (Produktname, PZN...)" style="flex:1;border:none;padding:18px 26px;font-size:16px;font-family:inherit;color:#555555;outline:none;background:#FFFFFF">
-      <button aria-label="Suchen" style="background:#D43034;color:#FFFFFF;border:none;padding:0 28px;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#B8282C">
-        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5L21 21"></path></svg>
-      </button>
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-top">
+      <a class="hdr-brand" href="../index.html" aria-label="IhreApotheken.de – Startseite">
+        <img class="hdr-logo" src="uploads/IhreApotheken.de-Logo.png" alt="IhreApotheken.de">
+      </a>
+      <nav class="hdr-nav" aria-label="Hauptnavigation">
+        <a class="nav-link" href="#" aria-label="Apotheke wählen">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path class="ico-stroke" stroke="#262626" d="M3 11L12 3l9 8"></path><path class="ico-stroke" stroke="#262626" d="M5 10v10h14V10"></path><path d="M12 12v5M9.5 14.5h5" stroke="#D43034"></path></svg>
+          <span class="nav-lbl">Apotheke wählen</span></a>
+        <a class="nav-link" href="#" aria-label="Anmelden">
+          <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><circle class="ico-fill" cx="12" cy="8" r="4" fill="#262626"></circle><path class="ico-fill" d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z" fill="#262626"></path></svg>
+          <span class="nav-lbl">Anmelden</span></a>
+        <a class="nav-link" href="#" aria-label="Menü">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path class="ico-stroke" stroke="#262626" d="M3 6h18M3 12h18M3 18h18"></path></svg>
+          <span class="nav-lbl">Menü</span></a>
+      </nav>
     </div>
-    <button class="btn-upload" style="background:#D43034;color:#FFFFFF;border:none;border-radius:9px;padding:0 34px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;display:flex;align-items:center;gap:10px" style-hover="background:#B8282C">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-      Rezept hochladen</button>
+    <div class="hdr-search">
+      <div class="hdr-form" role="search">
+        <div class="search-wrap">
+          <input class="search-input" type="text" placeholder=" " aria-label="Medikament suchen">
+          <span class="search-ph" aria-hidden="true"><span class="search-ph-l">Medikament suchen (Produktname, PZN...)</span><span class="search-ph-s">Medikament suchen...</span></span>
+          <button class="btn-scan" type="button" aria-label="Barcode scannen">
+            <svg width="15" height="12" viewBox="0 0 15 12" fill="#262626" aria-hidden="true"><rect x="0" y="0" width="1.4" height="12"></rect><rect x="2.4" y="0" width="1" height="12"></rect><rect x="4.4" y="0" width="2" height="12"></rect><rect x="7.4" y="0" width="1" height="12"></rect><rect x="9.4" y="0" width="1.8" height="12"></rect><rect x="12.2" y="0" width="1.4" height="12"></rect></svg>
+            <span>SCAN</span></button>
+          <button class="btn-search" type="button" aria-label="Suchen">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5L21 21"></path></svg>
+          </button>
+        </div>
+      </div>
+      <a class="btn-upload" href="https://ihreapotheken.de/themenuebersicht/rezepte-upload">
+        <svg width="13" height="10" viewBox="0 0 13 10" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.5 4.40013V8.78683C0.5 9.1133 0.764649 9.37795 1.09111 9.37795H6.5H9.5H11.9089C12.2354 9.37795 12.5 9.1133 12.5 8.78683V5.73348V4.40013V1.21343C12.5 0.886967 12.2354 0.622314 11.9089 0.622314H4.27778V3.80902C4.27778 4.13548 4.01313 4.40013 3.68667 4.40013H0.5Z" fill="#FFFFFF"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.13622 3.00513C8.16673 2.97462 8.20689 2.95965 8.24688 2.96022C8.28686 2.95965 8.32702 2.97462 8.35753 3.00513L9.94834 4.59591C10.0082 4.65582 10.0082 4.75294 9.94834 4.81284L9.73141 5.02976C9.67151 5.08967 9.57438 5.08967 9.51448 5.02976L8.55061 4.06591V7.00682C8.55061 7.09153 8.48194 7.1602 8.39722 7.1602H8.09044C8.00572 7.1602 7.93705 7.09153 7.93705 7.00682V4.072L6.97927 5.02976C6.91937 5.08967 6.82225 5.08967 6.76234 5.02976L6.54542 4.81284C6.48551 4.75294 6.48551 4.65582 6.54542 4.59591L8.13622 3.00513Z" fill="#262626"></path><path d="M3.24287 3.95532C3.56934 3.95532 3.83398 3.69069 3.83398 3.36424L3.83398 0.62215L0.500653 3.95532L3.24287 3.95532Z" fill="#FFFFFF"></path></svg>
+        <span class="up-lbl">Rezept hochladen</span><span class="up-lbl-s">Rezept</span></a>
+    </div>
   </div>
 </header>
 <main style="background:#FFFFFF">
@@ -146,10 +212,10 @@ main section h3{font-size:17px!important}
     <div class="hero-text" style="flex:1.2;position:relative">
       <h1 class="hero-h1" style="font-family:'Roboto Flex',system-ui,'Helvetica Neue',Arial,sans-serif;font-size:26px;line-height:1.35;font-weight:700;color:#262626;margin:0 0 16px">Medikamente online bestellen: Welche Apotheken-App ist die beste?</h1>
       <p style="font-size:16px;line-height:1.6;margin:0 0 28px;max-width:560px">iA.de verbindet Online-Bestellung, E-Rezept, Botendienst, Abholung, Labortests und Terminbuchung mit der Apotheke vor Ort. Damit ist die App besonders geeignet für alle, die digitale Bequemlichkeit suchen, aber persönliche Beratung und lokale Versorgung behalten möchten.</p>
-      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+      <div class="hero-cta" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
         <a href="https://ihreapotheken.de/app-download" style="display:inline-block;background:#D43034;color:#FFFFFF;border-radius:8px;padding:12px 24px;font-size:16px;font-weight:500;text-decoration:none" style-hover="background:#B8282C;color:#FFFFFF;text-decoration:none">Jetzt App entdecken</a>
         <sc-if value="{{ showSzBadge }}" hint-placeholder-val="{{ true }}">
-        <img src="uploads/badge-topAppMehrwert2026-v1.svg" alt="SZ-Institut Siegel „Top App | Sehr hoher Mehrwert 2026“ für die iA.de-App" style="width:76px;display:block">
+        <img class="hero-badge" src="uploads/badge-topAppMehrwert2026-v1.svg" alt="SZ-Institut Siegel „Top App | Sehr hoher Mehrwert 2026“ für die iA.de-App" style="width:76px;display:block">
         </sc-if>
       </div>
     </div>
@@ -398,8 +464,8 @@ main section h3{font-size:17px!important}
   <div style="display:flex;flex-direction:column;gap:12px">
     <sc-for list="{{ faqs }}" as="faq" hint-placeholder-count="7">
       <details style="background:#FFFFFF;border:1px solid #E5E5E5;border-radius:12px;overflow:hidden">
-        <summary style="cursor:pointer;padding:18px 24px;font-size:16px;font-weight:500;color:#262626;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:44px;box-sizing:border-box">{{ faq.q }}<span style="color:#D43034;font-size:20px;font-weight:400;flex:none">+</span></summary>
-        <p style="font-size:15.5px;line-height:1.6;color:#555555;margin:0;padding:0 24px 20px">{{ faq.a }}</p>
+        <summary class="faq-q" style="cursor:pointer;padding:18px 24px;font-size:16px;font-weight:500;color:#262626;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:44px;box-sizing:border-box">{{ faq.q }}<span style="color:#D43034;font-size:20px;font-weight:400;flex:none">+</span></summary>
+        <p class="faq-a" style="font-size:15.5px;line-height:1.6;color:#555555;margin:0;padding:0 24px 20px">{{ faq.a }}</p>
       </details>
     </sc-for>
   </div>
@@ -410,10 +476,10 @@ main section h3{font-size:17px!important}
   <div style="background:#D43034">
     <div class="nl-bar" style="max-width:1110px;margin:0 auto;padding:28px 32px;display:flex;align-items:center;gap:40px;flex-wrap:wrap">
       <div class="nl-text" style="display:flex;align-items:center;gap:24px;flex:1;min-width:380px">
-        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round" style="flex:none"><path d="M22 2L11 13"></path><path d="M22 2L15 22l-4-9-9-4z"></path></svg>
+        <svg class="nl-icon" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linejoin="round" style="flex:none"><path d="M22 2L11 13"></path><path d="M22 2L15 22l-4-9-9-4z"></path></svg>
         <div>
-          <div style="font-size:21px;font-weight:700;color:#FFFFFF;margin-bottom:4px">Jetzt zum Newsletter anmelden</div>
-          <div style="font-size:15px;color:#FFFFFF;line-height:1.45;max-width:480px">Sie erhalten exklusive Angebote, Rabatte und Tipps rund um Ihre Gesundheit.</div>
+          <div class="nl-title" style="font-size:21px;font-weight:700;color:#FFFFFF;margin-bottom:4px">Jetzt zum Newsletter anmelden</div>
+          <div class="nl-sub" style="font-size:15px;color:#FFFFFF;line-height:1.45;max-width:480px">Sie erhalten exklusive Angebote, Rabatte und Tipps rund um Ihre Gesundheit.</div>
         </div>
       </div>
       <div class="nl-form" style="flex:1;min-width:360px;display:flex;background:#FFFFFF;border-radius:14px;padding:4px;box-shadow:0 0 0 2px rgba(255,255,255,0.6)">
